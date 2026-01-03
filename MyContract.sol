@@ -3,33 +3,18 @@
 pragma solidity ^0.8.17;
 
 contract MyContract {
-    uint public count;
+    string public name = "Example 5";
+    uint public balance;
 
-    function increment1() public {
-        count = count + 1;
+    function getName() public view returns (string memory) {
+        return name;
     }
 
-    function increment2() public {
-        increment1();
+    function add(uint a, uint b) public pure returns (uint) {
+        return a + b;
     }
 
-    function increment3() private {
-        count = count + 1;
-    }
-
-    function increment4() public {
-        increment3();
-    }
-
-    function increment5() external {
-        count = count + 1;
-    }
-
-    function increment6() internal {
-        count = count + 1;
-    }
-
-    function increment7() public {
-        increment6();
+    function pay() public payable {
+        balance = msg.value;
     }
 }
