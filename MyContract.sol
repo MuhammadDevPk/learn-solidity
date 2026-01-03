@@ -3,17 +3,33 @@
 pragma solidity ^0.8.17;
 
 contract MyContract {
-    string name = "Example 1";
+    uint public count;
 
-    function setName(string memory _name) public {
-        name = _name;
+    function increment1() public {
+        count = count + 1;
     }
 
-    function getName() public view returns (string memory) {
-        return name;
+    function increment2() public {
+        increment1();
     }
 
-    function resetName() internal {
-        name = "Example 1";
+    function increment3() private {
+        count = count + 1;
+    }
+
+    function increment4() public {
+        increment3();
+    }
+
+    function increment5() external {
+        count = count + 1;
+    }
+
+    function increment6() internal {
+        count = count + 1;
+    }
+
+    function increment7() public {
+        increment6();
     }
 }
