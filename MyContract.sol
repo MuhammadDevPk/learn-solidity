@@ -3,22 +3,7 @@
 pragma solidity ^0.8.17;
 
 contract MyContract {
-    address public contractAddress;
-    address public payer;
-    address public origin;
-    uint public amount;
-
-    constructor() {
-        contractAddress = address(this);
-    }
-
-    function pay() public payable {
-        payer = msg.sender;
-        origin = tx.origin;
-        amount = msg.value;
-    }
-
-    function getBlockInfo() public view returns (uint, uint, uint) {
-        return (block.number, block.timestamp, block.chainId);
+    function sub(uint a, uint b) external pure returns (uint) {
+        return a - b;
     }
 }
