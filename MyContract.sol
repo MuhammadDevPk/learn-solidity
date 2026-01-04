@@ -2,18 +2,23 @@
 
 pragma solidity ^0.8.17;
 
-contract MyContract {
-    event Log(string message);
+contract Ownable {
+    address owner;
 
-    function example1(uint _value) public {
-        require(_value > 10, "Value must be greater than 10");
-        emit Log("Value is greater than 10");
+    constructor() {
+        owner = msg.sender;
     }
 
-    function example2(uint _value) public {
-        if (_value <= 10) {
-            revert("must be greater than 10");
-        }
-        emit Log("Success");
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Not the owner");
+        _;
+    }
+}
+
+contract MyContract is Ownable {
+    string public name = "Example 1";
+
+    function setName(string memory _name) public onlyOwner {
+        name = _name;
     }
 }
