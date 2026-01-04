@@ -2,23 +2,34 @@
 
 pragma solidity ^0.8.17;
 
-contract Ownable {
-    address owner;
+contract SecretVault {
+    string private secret;
 
-    constructor() {
-        owner = msg.sender;
+    constructor(string memory _secret) {
+        secret = _secret;
     }
 
-    modifier onlyOwner() {
-        require(msg.sender == owner, "Not the owner");
-        _;
+    function setSecret(string memory _secret) external {
+        secret = _secret;
+    }
+
+    function getSecret() external view returns (string memory) {
+        return secret;
     }
 }
 
-contract MyContract is Ownable {
-    string public name = "Example 1";
+contract MyContract {
+    SecretVault public secretVault;
 
-    function setName(string memory _name) public onlyOwner {
-        name = _name;
+    constructor(SecretVault _secretVault) {
+        secretVault = _secretVault;
+    }
+
+    function setSecret(string memory _secret) external {
+        secretVault.setSecret(_secret);
+    }
+
+    function getSecret() external view returns (string memory) {
+        return secretVault.getSecret();
     }
 }
