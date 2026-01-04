@@ -3,17 +3,26 @@
 pragma solidity ^0.8.17;
 
 contract MyContract {
-    mapping(uint => string) public myMapping;
-
-    function get(uint _id) public view returns (string memory) {
-        return myMapping[_id];
+    struct Book {
+        string title;
+        string author;
+        bool completed;
     }
 
-    function set(uint _id, string memory _value) public {
-        myMapping[_id] = _value;
+    Book[] public books;
+
+    function add(string memory _title, string memory _author) public {
+        books.push(Book(_title, _author, false));
     }
 
-    function remove(uint _id) public {
-        delete myMapping[_id];
+    function get(
+        uint _index
+    )
+        public
+        view
+        returns (string memory title, string memory author, bool completed)
+    {
+        Book storage book = books[_index];
+        return (book.title, book.author, book.completed);
     }
 }
