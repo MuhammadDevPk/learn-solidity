@@ -3,27 +3,17 @@
 pragma solidity ^0.8.17;
 
 contract MyContract {
-    uint public value1 = 1 wei;
-    uint public value2 = 1;
-    uint public value3 = 1 gwei;
-    uint public value4 = 1000000000;
-    uint public value5 = 1 ether;
-    uint public value6 = 1000000000000000000;
+    event Log(string message);
 
-    uint public count = 0;
-
-    receive() external payable {}
-
-    fallback() external payable {
-        count++;
+    function example1(uint _value) public {
+        require(_value > 10, "Value must be greater than 10");
+        emit Log("Value is greater than 10");
     }
 
-    function checkBalance() public view returns (uint) {
-        return address(this).balance;
-    }
-
-    function transfer(address payable _to) public payable {
-        (bool, sent) = _to.call{value: msg.value}("");
-        require(sent, "Failed!");
+    function example2(uint _value) public {
+        if (_value <= 10) {
+            revert("must be greater than 10");
+        }
+        emit Log("Success");
     }
 }
